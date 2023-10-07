@@ -1,10 +1,9 @@
-#include <SDL2/SDL.h>
+#include "boulder.h"
 
-const int SCREEN_WIDTH = 800;
-const int SCREEN_HEIGHT = 600;
-
-int main(int argc, char* argv[]) {
-    if (SDL_InitSubSystem(SDL_INIT_VIDEO) != 0) {
+int main(int argc, char* argv[])
+{
+    if (SDL_InitSubSystem(SDL_INIT_VIDEO | SDL_INIT_TIMER) != 0)
+    {
         SDL_Log("Unable to initialize SDL: %s", SDL_GetError());
         SDL_Quit();
         return 1;
@@ -16,7 +15,8 @@ int main(int argc, char* argv[]) {
                                           SCREEN_WIDTH,
                                           SCREEN_HEIGHT,
                                           0);
-    if (window == NULL) {
+    if (window == NULL)
+    {
         SDL_Log("Unable to create window: %s", SDL_GetError());
         SDL_Quit();
         return 1;
@@ -25,29 +25,48 @@ int main(int argc, char* argv[]) {
     SDL_Renderer *renderer = SDL_CreateRenderer(window,
                                                 -1,
                                                 SDL_RENDERER_SOFTWARE);
-    if (renderer == NULL) {
+    if (renderer == NULL)
+    {
         SDL_Log("Unable to create renderer: %s", SDL_GetError());
         SDL_DestroyWindow(window);
         SDL_Quit();
         return 1;
     }
 
-    // Hardware-accelerated Rendering: Draw a red diagonal line
-    SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
-    SDL_RenderDrawLine(renderer, 0, 0, 800, 600);
-    SDL_RenderPresent(renderer);
+    // Game specific init
+    Init();
 
+    // Main Game Loop
     SDL_Event event;
     bool running = true;
-    while (running) {
-        while (SDL_PollEvent(&event)) {
-            if (event.type == SDL_QUIT) {
+    Uint32 lastTime = SDL_GetTicks();
+    Uint32 deltaTime, currentTime;
+    while (running)
+    {
+        // Input and window events
+        while (SDL_PollEvent(&event))
+        {
+            // TODO: Process events like input, etc.
+            if (event.type == SDL_QUIT)
+            {
                 running = false;
             }
         }
-        SDL_Delay(10);  // Just to prevent 100% CPU usage
+
+        // Game systems
+        currentTime = SDL_GetTicks();
+        deltaTime = currentTime - lastTime;
+        Update(deltaTime);
+        lastTime = currentTime;
+
+        // Draw visuals
+        Render(renderer);
     }
+
+    // Game specific cleanup
+    Shutdown();
     
+    // Cleanup before exit
     SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(window);
     SDL_Quit();
