@@ -40,16 +40,17 @@ void Init()
 
     // Projection matrix init
     float pi = 3.14159265358979323846264338327950288419716939937510;
-    float aspectRatio = SCREEN_WIDTH/SCREEN_HEIGHT;
-    float fov = pi/2;   // 90 Degrees
+    float fov = 90.0;   // Degrees
     float zFar = 1000;
-    float zNear = 0.1;
-    projMat(0, 0) = aspectRatio * fov;
-    projMat(1, 1) = fov;
-    projMat(2, 2) = zFar/(zFar - zNear);
+    float zNear = 0.1f;
+    float aspectRatio = (float) actualHeight/ (float) actualWidth;
+    float fovRad = 1.0 / tanf(fov * 0.5f / 180.0f * pi);
+    projMat(0, 0) = aspectRatio * fovRad;
+    projMat(1, 1) = fovRad;
+    projMat(2, 2) = zFar / (zFar - zNear);
     projMat(3, 2) = (-zFar * zNear) / (zFar - zNear);
-    projMat(2, 3) = 1;
-    projMat(3, 3) = 0;
+    projMat(2, 3) = 1.0f;
+    projMat(3, 3) = 0.0f;
 }
 
 void Update(Uint32 deltaTime)

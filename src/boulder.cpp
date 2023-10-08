@@ -1,5 +1,8 @@
 #include "boulder.h"
 
+int actualWidth = 0;
+int actualHeight = 0;
+
 int main(int argc, char* argv[])
 {
     if (SDL_InitSubSystem(SDL_INIT_VIDEO | SDL_INIT_TIMER) != 0)
@@ -56,6 +59,7 @@ int main(int argc, char* argv[])
     SDL_Color fpsColour = {255, 255, 255};
 
     // Game specific init
+    SDL_GetWindowSize(window, &actualWidth, &actualHeight);
     Init();
 
     // FPS and other times
