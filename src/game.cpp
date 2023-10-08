@@ -122,8 +122,6 @@ void Render(SDL_Renderer *renderer)
 
         drawTriangle(renderer, faceProjected);
     }
-    SDL_RenderPresent(renderer);
-    SDL_Delay(10);
 }
 
 void Shutdown()

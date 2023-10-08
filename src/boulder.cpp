@@ -33,8 +33,41 @@ int main(int argc, char* argv[])
         return 1;
     }
 
+    // Text library setup
+    if (TTF_Init() == -1)
+    {
+        SDL_Log("Unable to init fonts: %s", SDL_GetError());
+        SDL_DestroyRenderer(renderer);
+        SDL_DestroyWindow(window);
+        SDL_Quit();
+        return 1;
+    }
+
+    TTF_Font *font = TTF_OpenFont("../fonts/Lato/Lato-Regular.ttf", 16);
+    if (font == nullptr)
+    {
+        SDL_Log("Unable to load fonts: %s", SDL_GetError());
+        TTF_Quit();
+        SDL_DestroyRenderer(renderer);
+        SDL_DestroyWindow(window);
+        SDL_Quit();
+        return 1;
+    }
+    SDL_Color textColour = {255, 255, 255};
+
     // Game specific init
     Init();
+
+    // FPS
+    int frameCount = 0;
+    float alpha = 0.8f;
+    float oldFps = 0.0f;
+    float newFps = 0.0f;
+    float rawFps;
+    float startTime = SDL_GetTicks();
+    SDL_Surface* surfaceMessage;
+    SDL_Texture* message;
+    SDL_Rect textRect;
 
     // Main Game Loop
     SDL_Event event;
@@ -59,14 +92,43 @@ int main(int argc, char* argv[])
         Update(deltaTime);
         lastTime = currentTime;
 
-        // Draw visuals
+        // Rendering
         Render(renderer);
+        frameCount += 1;
+
+        // FPS display
+        if (currentTime - startTime >= 1000)
+        {
+            rawFps = frameCount / ((currentTime - startTime) / 1000);
+            newFps = alpha*rawFps + (1.0f - alpha)*oldFps;
+            oldFps = newFps;
+
+            startTime = currentTime;
+            frameCount = 0;
+
+            std::stringstream ss;
+            ss << "FPS: " << newFps;
+
+            surfaceMessage = TTF_RenderText_Solid(font, ss.str().c_str(), textColour);
+            message = SDL_CreateTextureFromSurface(renderer, surfaceMessage);
+
+            textRect.x = 10; // E.g., 10 pixels from the left of the window
+            textRect.y = 10; // E.g., 10 pixels from the top of the window
+            textRect.w = surfaceMessage->w;
+            textRect.h = surfaceMessage->h;
+        }
+        SDL_RenderCopy(renderer, message, NULL, &textRect);
+        SDL_RenderPresent(renderer);
     }
 
     // Game specific cleanup
     Shutdown();
     
     // Cleanup before exit
+    SDL_FreeSurface(surfaceMessage);
+    SDL_DestroyTexture(message);
+    TTF_CloseFont(font);
+    TTF_Quit();
     SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(window);
     SDL_Quit();
