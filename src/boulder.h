@@ -7,4 +7,4 @@ void Render(SDL_Renderer *renderer);
 void Shutdown();
 
 const int SCREEN_WIDTH = 800;
-const int SCREEN_HEIGHT = 600;
+const int SCREEN_HEIGHT = 800;
