@@ -1,6 +1,5 @@
 #include <SDL2/SDL.h>
 #include <cmath>
-#include <iostream>
 #include "boulder.h"
 #include "renderering.h"
 
@@ -55,7 +54,6 @@ void Init()
 
 void Update(Uint32 deltaTime)
 {
-    std::cout << deltaTime << "\n";
     // Set up rotation matrices
     theta += 0.001f * deltaTime;
 

@@ -53,12 +53,12 @@ int main(int argc, char* argv[])
         SDL_Quit();
         return 1;
     }
-    SDL_Color textColour = {255, 255, 255};
+    SDL_Color fpsColour = {255, 255, 255};
 
     // Game specific init
     Init();
 
-    // FPS
+    // FPS and other times
     int frameCount = 0;
     float alpha = 0.8f;
     float oldFps = 0.0f;
@@ -96,9 +96,10 @@ int main(int argc, char* argv[])
         Render(renderer);
         frameCount += 1;
 
-        // FPS display
+        // FPS and other time displays
         if (currentTime - startTime >= 1000)
         {
+            // FPS
             rawFps = frameCount / ((currentTime - startTime) / 1000);
             newFps = alpha*rawFps + (1.0f - alpha)*oldFps;
             oldFps = newFps;
@@ -106,10 +107,11 @@ int main(int argc, char* argv[])
             startTime = currentTime;
             frameCount = 0;
 
+            // Draw text to screen
             std::stringstream ss;
-            ss << "FPS: " << newFps;
+            ss << "FPS: " << newFps << " | deltaTime: " << (1000/newFps);
 
-            surfaceMessage = TTF_RenderText_Solid(font, ss.str().c_str(), textColour);
+            surfaceMessage = TTF_RenderText_Solid(font, ss.str().c_str(), fpsColour);
             message = SDL_CreateTextureFromSurface(renderer, surfaceMessage);
 
             textRect.x = 10; // E.g., 10 pixels from the left of the window
@@ -117,7 +119,9 @@ int main(int argc, char* argv[])
             textRect.w = surfaceMessage->w;
             textRect.h = surfaceMessage->h;
         }
-        SDL_RenderCopy(renderer, message, NULL, &textRect);
+
+        // Update screen with newly rendered frame
+        SDL_RenderCopy(renderer, message, NULL, &textRect); // Fps counter
         SDL_RenderPresent(renderer);
     }
 
