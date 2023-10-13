@@ -11,6 +11,7 @@ float theta;
 
 void Init()
 {
+    /*
     std::vector<face> tempFaces = {
         // SOUTH
         { 0.0f, 0.0f, 0.0f,    0.0f, 1.0f, 0.0f,    1.0f, 1.0f, 0.0f },
@@ -51,10 +52,15 @@ void Init()
     projMat(3, 2) = (-zFar * zNear) / (zFar - zNear);
     projMat(2, 3) = 1.0f;
     projMat(3, 3) = 0.0f;
+    */
+
+   // Load systems and component pools
+
 }
 
 void Update(Uint32 deltaTime)
 {
+    /*
     // Set up rotation matrices
     theta += 0.001f * deltaTime;
 
@@ -73,10 +79,13 @@ void Update(Uint32 deltaTime)
     matRotX(2,1) = -sinf(theta * 0.5f);
     matRotX(2,2) = cosf(theta * 0.5f);
     matRotX(3,3) = 1;
+    */
+   // Loop loaded systems
 }
 
 void Render(SDL_Renderer *renderer)
 {
+    /*
     SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
     SDL_RenderClear(renderer);
     // RENDER ALL THINGS THAT NEED RENDERING
@@ -121,6 +130,8 @@ void Render(SDL_Renderer *renderer)
 
         drawTriangle(renderer, faceProjected);
     }
+    */
+    // Define render system in this function
 }
 
 void Shutdown()

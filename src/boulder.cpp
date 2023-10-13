@@ -132,7 +132,7 @@ int main(int argc, char* argv[])
     // Game specific cleanup
     Shutdown();
     
-    // Cleanup before exit
+    // Cleanup SDL before exit
     SDL_FreeSurface(surfaceMessage);
     SDL_DestroyTexture(message);
     TTF_CloseFont(font);
