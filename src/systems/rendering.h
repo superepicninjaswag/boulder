@@ -1,7 +1,7 @@
 #include <SDL2/SDL.h>
 #include <vector>
 
-#include "gmath.h"
+#include "../util/gmath.h"
 
 extern Matrix4x4 projMat;  // Projection matrix
 

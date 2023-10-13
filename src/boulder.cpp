@@ -96,7 +96,9 @@ int main(int argc, char* argv[])
         Update(deltaTime);
         lastTime = currentTime;
 
-        // Rendering
+        // Clear screen and render
+        SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
+        SDL_RenderClear(renderer);
         Render(renderer);
         frameCount += 1;
 

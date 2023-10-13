@@ -1,4 +1,4 @@
-#include "renderering.h"
+#include "rendering.h"
 
 void drawLine(SDL_Renderer *renderer, int x1, int y1, int x2, int y2)
 {

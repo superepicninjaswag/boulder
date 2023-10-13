@@ -1,7 +1,7 @@
 #include <SDL2/SDL.h>
 #include <cmath>
 #include "boulder.h"
-#include "renderering.h"
+#include "./systems/rendering.h"
 
 
 mesh cube;
@@ -86,8 +86,6 @@ void Update(Uint32 deltaTime)
 void Render(SDL_Renderer *renderer)
 {
     /*
-    SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
-    SDL_RenderClear(renderer);
     // RENDER ALL THINGS THAT NEED RENDERING
     // TODO: Have each object that is rendered set the colour
     SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
