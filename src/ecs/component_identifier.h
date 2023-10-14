@@ -1,4 +1,4 @@
-// Original author: Michele 'skypjack' Caini
+//  This work by Michele Caini is licensed under CC BY-NC-SA 4.0 
 #include <cstdint>
 
 class family {
