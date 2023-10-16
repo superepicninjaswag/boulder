@@ -1,4 +1,6 @@
-struct vector3
+#pragma once
+
+struct Vec3
 {
     float x, y, z;
 };
@@ -11,5 +13,5 @@ public:
     Matrix4x4(/* args */);
     ~Matrix4x4();
     float &operator()(int row, int col);
-    vector3 operator*(const vector3 &i);
+    Vec3 operator*(const Vec3 &i);
 };

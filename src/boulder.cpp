@@ -1,7 +1,7 @@
-#include "boulder.h"
+#include "Boulder.h"
 
-int actualWidth = 0;
-int actualHeight = 0;
+int g_actualWidth = 0;
+int g_actualHeight = 0;
 
 int main(int argc, char* argv[])
 {
@@ -59,7 +59,6 @@ int main(int argc, char* argv[])
     SDL_Color fpsColour = {255, 255, 255};
 
     // Game specific init
-    SDL_GetWindowSize(window, &actualWidth, &actualHeight);
     Init();
 
     // FPS and other times

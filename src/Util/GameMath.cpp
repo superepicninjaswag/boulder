@@ -1,4 +1,4 @@
-#include "gmath.h"
+#include "GameMath.h"
 
 Matrix4x4::Matrix4x4() : a{ 0 }
 {
@@ -15,9 +15,9 @@ float &Matrix4x4::operator()(int row, int col)
     return a[row][col];
 }
 
-vector3 Matrix4x4::operator*(const vector3 &i)
+Vec3 Matrix4x4::operator*(const Vec3 &i)
 {
-    vector3 o;
+    Vec3 o;
     o.x = i.x * (*this)(0,0) + i.y * (*this)(1,0) + i.z * (*this)(2,0) + (*this)(3,0);
     o.y = i.x * (*this)(0,1) + i.y * (*this)(1,1) + i.z * (*this)(2,1) + (*this)(3,1);
     o.z = i.x * (*this)(0,2) + i.y * (*this)(1,2) + i.z * (*this)(2,2) + (*this)(3,2);
