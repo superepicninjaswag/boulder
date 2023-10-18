@@ -1,5 +1,14 @@
 #include "GameMath.h"
 
+Vec3 Vec3::operator+(const Vec3 &i)
+{
+    Vec3 o;
+    o.x = x + i.x;
+    o.y = y + i.y;
+    o.z = z + i.z;
+    return o;
+}
+
 Matrix4x4::Matrix4x4() : a{ 0 }
 {
 

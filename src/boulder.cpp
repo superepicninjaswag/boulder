@@ -59,7 +59,7 @@ int main(int argc, char* argv[])
     SDL_Color fpsColour = {255, 255, 255};
 
     // Game specific init
-    Init();
+    Init(renderer);
 
     // FPS and other times
     int frameCount = 0;
@@ -98,7 +98,7 @@ int main(int argc, char* argv[])
         // Clear screen and render
         SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
         SDL_RenderClear(renderer);
-        Render(renderer);
+        Render();
         frameCount += 1;
 
         // FPS and other time displays

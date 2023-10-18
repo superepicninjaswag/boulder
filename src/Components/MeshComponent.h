@@ -2,7 +2,7 @@
 
 #include <vector>
 
-#include "../Rendering/Rendering.h"
+#include "../Rendering/Geometry.h"
 
 struct MeshComponent
 {

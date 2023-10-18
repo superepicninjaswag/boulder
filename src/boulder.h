@@ -5,9 +5,9 @@
 #include <cstdlib>
 #include <sstream>
 
-void Init();
+void Init(SDL_Renderer *renderer);
 void Update(Uint32 deltaTime);
-void Render(SDL_Renderer *renderer);
+void Render();
 void Shutdown();
 
 const int SCREEN_WIDTH = 1024;

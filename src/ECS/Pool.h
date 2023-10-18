@@ -17,6 +17,8 @@ public:
     template <typename... Args>
     void Add(int id, Args&&... args);
     T *Get(int id);
+    int Size();
+    int MirrorIdToEntityId(int index);
 };
 
 template <typename T>
@@ -46,4 +48,16 @@ T *Pool<T>::Get(int id)
         // Entity doesn't have the component
         return nullptr;
     }
+}
+
+template <typename T>
+int Pool<T>::Size()
+{
+    return _dense.size();
+}
+
+template <typename T>
+int Pool<T>::MirrorIdToEntityId(int index)
+{
+    return _mirror[index];
 }
