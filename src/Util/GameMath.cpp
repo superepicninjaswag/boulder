@@ -14,11 +14,6 @@ Matrix4x4::Matrix4x4() : a{ 0 }
 
 }
 
-Matrix4x4::~Matrix4x4()
-{
-
-}
-
 float &Matrix4x4::operator()(int row, int col)
 {
     return a[row][col];
