@@ -3,7 +3,7 @@
 #include <SDL2/SDL.h>
 #include "../Util/GameMath.h"
 
-struct colour
+struct Colour
 {
     Uint8 r, g, b, a;
 };

@@ -31,3 +31,4 @@ public:
 
 void drawLine(SDL_Renderer *renderer, int x1, int y1, int x2, int y2);
 void drawTriangle(SDL_Renderer *renderer, const Face &triangle);
+void drawFilledTriangle(SDL_Renderer *renderer, const Face &triangle, const Colour c);

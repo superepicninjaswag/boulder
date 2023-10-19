@@ -4,6 +4,8 @@ struct Vec3
 {
     float x, y, z;
     Vec3 operator+(const Vec3 &i);
+    Vec3 operator-(const Vec3 &i);
+    Vec3 operator*(const float &i);
 };
 
 class Matrix4x4

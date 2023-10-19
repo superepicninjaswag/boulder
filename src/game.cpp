@@ -10,11 +10,15 @@ void Init(SDL_Renderer *renderer)
 
     int cube = g_ecs.GetIDs().CreateId();
     g_ecs.GetMeshes().Add(cube);
-    g_ecs.GetTransforms().Add(cube, -1.0f, -1.0f, 5.0f);
+    g_ecs.GetTransforms().Add(cube, 0.0f, 0.0f, 10.0f);
 
     int cube2 = g_ecs.GetIDs().CreateId();
     g_ecs.GetMeshes().Add(cube2);
-    g_ecs.GetTransforms().Add(cube2, 3.0f, 3.0f, 7.0f);
+    g_ecs.GetTransforms().Add(cube2, 3.0f, 3.0f, 15.0f);
+
+    int cube3 = g_ecs.GetIDs().CreateId();
+    g_ecs.GetMeshes().Add(cube3);
+    g_ecs.GetTransforms().Add(cube3, -3.0f, -3.0f, 5.0f);
 }
 
 void Update(Uint32 deltaTime)

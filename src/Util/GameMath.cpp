@@ -9,6 +9,24 @@ Vec3 Vec3::operator+(const Vec3 &i)
     return o;
 }
 
+Vec3 Vec3::operator-(const Vec3 &i)
+{
+    Vec3 o;
+    o.x = x - i.x;
+    o.y = y - i.y;
+    o.z = z - i.z;
+    return o;
+}
+
+Vec3 Vec3::operator*(const float &i)
+{
+    Vec3 o;
+    o.x = x * i;
+    o.y = y * i;
+    o.z = z * i;
+    return o;
+}
+
 Matrix4x4::Matrix4x4() : a{ 0 }
 {
 
