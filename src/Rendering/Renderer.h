@@ -16,6 +16,7 @@ private:
     float aspectRatio = SCREEN_HEIGHT / SCREEN_WIDTH;
     SDL_Renderer *renderer;
     Vec3 camera;
+    std::vector<std::thread> workers;
 public:
     float theta = 0;
     Matrix4x4 matRotZ, matRotX;

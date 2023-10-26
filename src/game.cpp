@@ -11,8 +11,8 @@ void Init(SDL_Renderer *renderer)
     {
         for(int j = 0; j < limit; j++)
         {
-            float x = i - limit/2;
-            float y = j - limit/2;
+            float x = (i - limit/2)*2;
+            float y = (j - limit/2)*2;
             float z = 12;
             if(i % 2 == 0)
             {
@@ -55,7 +55,7 @@ void Render()
 
     Pool<MeshComponent> *meshes = &g_ecs.GetMeshes();
     Pool<TransformComponent> *transforms = &g_ecs.GetTransforms();
-    
+
     g_renderer.Render(meshes, transforms);
 }
 

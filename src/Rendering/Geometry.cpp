@@ -9,5 +9,7 @@ bool Face::operator<(const Face &b) const
         zSumFaceA += points[i].z;
         zSumFaceB += b.points[i].z;
     }
-    return zSumFaceA < zSumFaceB;
+    zSumFaceA /= 3;
+    zSumFaceB /= 3;
+    return zSumFaceA > zSumFaceB;
 }
