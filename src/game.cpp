@@ -1,29 +1,34 @@
 #include "Game.h"
 
-#include <iostream>
-
-
+#include <stdlib.h>
 
 void Init(SDL_Renderer *renderer)
 {
     g_renderer.Init(renderer);
 
-    int cube = g_ecs.GetIDs().CreateId();
-    g_ecs.GetMeshes().Add(cube);
-    g_ecs.GetTransforms().Add(cube, 0.0f, 0.0f, 10.0f);
-
-    int cube2 = g_ecs.GetIDs().CreateId();
-    g_ecs.GetMeshes().Add(cube2);
-    g_ecs.GetTransforms().Add(cube2, 3.0f, 3.0f, 15.0f);
-
-    int cube3 = g_ecs.GetIDs().CreateId();
-    g_ecs.GetMeshes().Add(cube3);
-    g_ecs.GetTransforms().Add(cube3, -3.0f, -3.0f, 5.0f);
+    int limit = 8;
+    for (int i = 0; i < limit; i++)
+    {
+        for(int j = 0; j < limit; j++)
+        {
+            float x = i - limit/2;
+            float y = j - limit/2;
+            float z = 12;
+            if(i % 2 == 0)
+            {
+                z = z - 6;
+            }
+            
+            int newEntity = g_ecs.GetIDs().CreateId();
+            g_ecs.GetMeshes().Add(newEntity);
+            g_ecs.GetTransforms().Add(newEntity, x, y, z);
+        }
+    }
 }
 
 void Update(Uint32 deltaTime)
 {
-   // Set up rotation matrices
+    // Set up rotation matrices
     g_renderer.theta += 0.001f * deltaTime;
 
     // Rotation Z

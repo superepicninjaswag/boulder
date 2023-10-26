@@ -5,15 +5,17 @@
 
 struct Colour
 {
-    Uint8 r, g, b, a;
+    Uint8 r = 255;
+    Uint8 g = 255;
+    Uint8 b = 255;
+    Uint8 a = 255;
 };
 
 struct Face
 {
+public:
     Vec3 points[3];
-};
+    Colour colour;
 
-struct mesh
-{
-    std::vector<Face> faces;
+    bool operator<(const Face &b) const;
 };

@@ -18,6 +18,11 @@ Vec3 Vec3::operator-(const Vec3 &i)
     return o;
 }
 
+float Vec3::operator*(const Vec3 &i)
+{
+    return x*i.x + y*i.y + z*i.z;
+}
+
 Vec3 Vec3::operator*(const float &i)
 {
     Vec3 o;
@@ -25,6 +30,29 @@ Vec3 Vec3::operator*(const float &i)
     o.y = y * i;
     o.z = z * i;
     return o;
+}
+
+void Vec3::Normalize()
+{
+    float length = this->Length();
+    x /= length;
+    y /= length;
+    z /= length;
+}
+
+float Vec3::Length()
+{
+    // Euclidean norm
+    return sqrtf(x*x + y*y + z*z);
+}
+
+Vec3 Vec3::CrossProduct(const Vec3 &input)
+{
+    Vec3 output;
+    output.x = y*input.z - z*input.y;
+    output.y = z*input.x - x*input.z;
+    output.z = x*input.y - y*input.x;
+    return output;
 }
 
 Matrix4x4::Matrix4x4() : a{ 0 }

@@ -5,6 +5,7 @@
 #include "Boulder.h"
 #include "./ECS/ECS.h"
 #include "./Rendering/Rendering.h"
+#include "./Rendering/Renderer.h"
 
 
 ECS g_ecs;
