@@ -8,12 +8,12 @@ class Pool
 {
 private:
     std::vector<int> _sparse;
-    std::vector<T> _dense;
     std::vector<int> _mirror;
     int nextAvailableIndex = 0;
 public:
-    Pool(): _sparse(65536), _dense(), _mirror(){}
+    std::vector<T> _dense;
 
+    Pool(): _sparse(65536), _dense(), _mirror(){}
     template <typename... Args>
     void Add(int id, Args&&... args);
     T *Get(int id);

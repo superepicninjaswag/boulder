@@ -1,5 +1,17 @@
 #include "Geometry.h"
 
+Face::Face()
+{
+    
+}
+
+Face::Face(Vec3 p1, Vec3 p2, Vec3 p3)
+{
+    points[0] = p1;
+    points[1] = p2;
+    points[2] = p3;
+}
+
 bool Face::operator<(const Face &b) const
 {
     float zSumFaceA = 0.0f;

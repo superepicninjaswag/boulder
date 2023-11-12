@@ -17,5 +17,7 @@ public:
     Vec3 points[3];
     Colour colour;
 
+    Face();
+    Face(Vec3 p1, Vec3 p2, Vec3 p3);
     bool operator<(const Face &b) const;
 };

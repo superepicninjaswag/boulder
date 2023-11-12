@@ -1,5 +1,7 @@
 #include "Renderer.h"
 
+#include <iostream>
+
 Matrix4x4 g_projectionMatrix;
 
 Renderer::Renderer() {}
@@ -7,6 +9,11 @@ Renderer::Renderer() {}
 void Renderer::Init(SDL_Renderer *renderer)
 {
     this->renderer = renderer;
+    
+    lightDirection.x = 0.0f;
+    lightDirection.y = 0.0f;
+    lightDirection.z = -1.0f;
+    lightDirection.Normalize();
 
     g_projectionMatrix(0, 0) = aspectRatio * fovRad;
     g_projectionMatrix(1, 1) = fovRad;
@@ -20,12 +27,13 @@ void Renderer::Init(SDL_Renderer *renderer)
     camera.z = 0.0f;
 }
 
-void Renderer::Render(Pool<MeshComponent> *meshes, Pool<TransformComponent> *transforms)
+void Renderer::Render(Pool<MeshComponent> &meshes, Pool<TransformComponent> &transforms, Pool<MeshResourceComponent> &meshResources)
 {
     std::vector<Face> facesToRender(512);
-    for (int i = 0; i < meshes->Size(); i++)
+    for (int i = 0; i < meshes.Size(); i++)
     {
-        for(auto f : meshes->Get(i)->cube)
+        int meshResourceId = meshes._dense[i].meshResourceId;
+        for(auto f : meshResources.Get(meshResourceId)->faces)
         {
             // Rotate
             Face faceRotatedZ, faceRotatedZX;
@@ -42,13 +50,13 @@ void Renderer::Render(Pool<MeshComponent> *meshes, Pool<TransformComponent> *tra
             faceRotatedZX.points[2] = matRotX * faceRotatedZ.points[2];
 
             // Translate face away from camera
-            int transformId = transforms->MirrorIdToEntityId(i);
+            int entityId = meshes.MirrorIdToEntityId(i);
             Face faceTranslated = faceRotatedZX;
-            faceTranslated.points[0] = faceTranslated.points[0] + transforms->Get(transformId)->v;
-            faceTranslated.points[1] = faceTranslated.points[1] + transforms->Get(transformId)->v;
-            faceTranslated.points[2] = faceTranslated.points[2] + transforms->Get(transformId)->v;
+            faceTranslated.points[0] = faceTranslated.points[0] + transforms.Get(entityId)->v;
+            faceTranslated.points[1] = faceTranslated.points[1] + transforms.Get(entityId)->v;
+            faceTranslated.points[2] = faceTranslated.points[2] + transforms.Get(entityId)->v;
 
-            // Face normal
+            // Calculate face normal
             Vec3 line1 = faceTranslated.points[1] - faceTranslated.points[0];
             Vec3 line2 = faceTranslated.points[2] - faceTranslated.points[0];
             Vec3 normal = line1.CrossProduct(line2);
@@ -65,9 +73,7 @@ void Renderer::Render(Pool<MeshComponent> *meshes, Pool<TransformComponent> *tra
             if (faceNormalProjectionOntoCameraRay < 0.0f)
             {
                 // Illumination
-                Vec3 light_direction = { 0.0f, 0.0f, -1.0f };
-                light_direction.Normalize();
-                float dp = normal * light_direction;
+                float dp = normal * lightDirection;
 
                 // Project the face into screen space
                 Face faceProjected;

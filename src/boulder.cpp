@@ -46,7 +46,7 @@ int main(int argc, char* argv[])
         return 1;
     }
 
-    TTF_Font *font = TTF_OpenFont("../fonts/Lato/Lato-Regular.ttf", 16);
+    TTF_Font *font = TTF_OpenFont("../Fonts/Lato/Lato-Regular.ttf", 16);
     if (font == nullptr)
     {
         SDL_Log("Unable to load fonts: %s", SDL_GetError());
